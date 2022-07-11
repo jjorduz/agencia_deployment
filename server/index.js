@@ -3,6 +3,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const configs = require("./config");
+require("dotenv").config({ path: "variables.env" });
 
 //db.authenticate()
 //  .then(() => console.log("DB Conectada"))
@@ -26,4 +27,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", routes());
 
-app.listen(3000);
+const host = process.env.HOST || "0.0.0.0";
+const port = process.env.PORT || 3000;
+
+app.listen(port, host, () => {});
